@@ -7,22 +7,27 @@ if(isset($_POST['login'])){
     $password = $_POST['password'];
 
     //cek db
-    $cekdatabase = mysqli_query($conn, "SELECT * FROM login where email = '$email' and password='$password'");
+    $cekdatabase = mysqli_query($conn, "select * from login where email = '$email' and password='$password'");
 
     $hitung = mysqli_num_rows($cekdatabase);
 
     if($hitung>0){
-        $_SESSION['log'] = 'True';
-        header('location:index.php');
+        $ambildatarole = mysqli_fetch_array($cekdatabase);
+        $role = $ambildatarole['role'];
+
+        if($role=='admin'){
+            $_SESSION['log'] = 'Logged';
+            $_SESSION['role'] = 'Admin';
+            header('location:admin/tanah.php');
+        }else{
+            $_SESSION['log'] = 'Logged';
+            $_SESSION['role'] = 'User';
+            header('location:user/tanah.php');
+        }
+
     }else{
         header('location:login.php');
     };
-};
-
-if(!isset($_SESSION['log'])){
-
-}else{
-    header('location:index.php');
 };
 
 ?>

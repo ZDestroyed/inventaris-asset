@@ -18,6 +18,16 @@ require '../cek.php';
         <link href="../css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+
+        <style>
+            .zoomable{
+                width: 100px;
+            }
+            .zoomable:hover{
+                transform: scale(2.5);
+                transition: 0.2s ease;
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -126,41 +136,68 @@ require '../cek.php';
                                                 $thak = $data['thak'];
                                                 $tnomor = $data['tnomor'];
                                                 $tanggalditerbitkan = $data['tanggalditerbitkan'];
+                                                $gambar = $data['image'];
                                                 $idt = $data['idtanah'];
-                                                $gambar = $_FILES['image'];
+
+                                                if($gambar==null){
+                                                    //gaada gambar
+                                                    $img = 'No Photo';
+                                                }else{
+                                                    //ada
+                                                    $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                                                }
                                         
                                                  //echo json_encode($namalembaga);
                                             ?>
                                            
                                             <tr>
                                                 <td><?=$i++;?></td>
+                                                <td><?=$img;?></td>
                                                 <td><?= $namalembaga;?></td>
                                                 <td><?= $namaaset;?></td>
                                                 <td><?= $keterangan;?></td>
                                                 <td>
-                                                    
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$idt;?>">
-                                                        Edit
-                                                </button>
-                                                <input type="hidden" name="idtanahyangmaudihapus" value="<?=$idt;?>">
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idt;?>">
-                                                        Delete
-                                                </button>
-                                                <a href="detailtanah.php?id=<?=$idt;?>" class="w3-button w3-teal">Detail</a>
-                                                <br>
+                                                
                                                 <button class="btn btn-warning text-white" id="accesscamera" data-toggle="modal" data-target="#photoModal<?$idt;?>">
                                                     Capture Photo
                                                 </button>
-                                                <input type="hidden" name="tambahgambar" value="<?=$idt;?>">
                                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#gambarmodal<?=$idt;?>">
                                                     Upload gambar
                                                 </button>
+                                                <a href="detailtanah.php?id=<?=$idt;?>" class="w3-button w3-teal">Detail</a>
                                                 </td>
-                                                
                                             </tr>
-                                        
 
-                                             <!--foto Modal camera-->
+                                             <!--foto Modal-->
+                                            <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Capture Photo</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div>
+                                                                <div id="my_camera" class="d-block mx-auto rounded overflow-hidden"></div>
+                                                            </div>
+                                                            <div id="results" class="d-none"></div>
+                                                            <form method="post" id="photoForm">
+                                                                <input type="hidden" id="photoStore" name="photoStore" value="">
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-warning mx-auto text-white" id="takephoto">Capture Photo</button>
+                                                            <button type="button" class="btn btn-warning mx-auto text-white d-none" id="retakephoto">Retake</button>
+                                                            <button type="submit" class="btn btn-warning mx-auto text-white d-none" id="uploadphoto" form="photoForm">Upload</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            
+                                            <!--foto Modal camera-->
                                             <div class="modal fade" id="photoModal<?=$idt;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -189,6 +226,29 @@ require '../cek.php';
                                                 </div>
                                             </div>
 
+                                            <!-- upload gambar -->
+                                            <div class="modal fade" id="gambarmodal<?=$idt;?>">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                    <h4 class="modal-title">Upload Gambar</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    
+                                                    <!-- Modal body -->
+                                                    <form method="post" enctype="multipart/form-data">
+                                                    <div class="modal-body"> 
+                                                    <input type="file" name= "file"  class="form-control" >
+                                                    <!-- <input type="file" name= "image" value="<?=$image;?>" class="form-control" > -->
+                                                    <br>
+                                                    
+                                                    <!-- <input type="hidden" name="idt" value="<?=$idt;?>"> -->
+                                                    <button type="submit" class="btn btn-primary" id="uploadgambar" name="uploadgambar">upload</button>
+                                                    </div>
+                                                    </form>
+
 
                                             <!-- edit Modal -->
                                             <div class="modal fade" id="edit<?=$idt;?>">
@@ -202,7 +262,7 @@ require '../cek.php';
                                                     </div>
                                                     
                                                     <!-- Modal body -->
-                                                    <form method="post" enctype="multipart/form-data">
+                                                    <form method="post">
                                                     <div class="modal-body">
                                                     
                                                     nama lembaga 
@@ -250,7 +310,7 @@ require '../cek.php';
                                                     tanggal di terbitkan
                                                     <input type="date" name= "tanggalditerbitkan" value="<?=$tanggalditerbitkan;?> "class="form-control" >
                                                     <br>
-                                                    <input type="file" name= "file" class="form-control" >
+                                                    <br>
                                                     <input type="hidden" name="idt" value="<?=$idt;?>">
                                                     <button type="submit" class="btn btn-primary" id="updatetanah" name="updatetanah">update</button>
                                                     </div>
@@ -289,28 +349,6 @@ require '../cek.php';
                                                 </div>
                                             </div>
 
-                                             <!-- upload gambar -->
-                                             <div class="modal fade" id="gambarmodal<?=$idt;?>">
-                                                <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                
-                                                    <!-- Modal Header -->
-                                                    <div class="modal-header">
-                                                    <h4 class="modal-title">Upload Gambar</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    </div>
-                                                    
-                                                    <!-- Modal body -->
-                                                    <form method="post">
-                                                    <div class="modal-body"> 
-                                                    <input type="file" name= "image" value="<?=$gambar;?>" class="form-control" required>
-                                                    <br>
-                                                    
-                                                    <input type="hidden" name="idt" value="<?=$idt;?>">
-                                                    <button type="submit" class="btn btn-primary" id="uploadgambar" name="uploadgambar">upload</button>
-                                                    </div>
-                                                    </form>
-
 
                                 
 
@@ -338,7 +376,7 @@ require '../cek.php';
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/datatables-demo.js"></script>
-    
+
         <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
         <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
    
@@ -348,75 +386,6 @@ require '../cek.php';
     </body>
            <!-- The Modal -->
     <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-        <div class="modal-content">
-        
-            <!-- Modal Header -->
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Tanah</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            
-            <!-- Modal body -->
-            <form method="post">
-            <div class="modal-body">
-            nama lembaga 
-            <input type="text" name= "namalembaga"  class="form-control" required>
-            <br>
-            nama aset
-            <input type="text" name= "namaaset"  class="form-control" required>
-            <br>
-            keterangan
-            <input type="text" name= "keterangan"  class="form-control" required>
-            <br>
-            kode barang
-            <input type="text" name= "kodebarang"  class="form-control">
-            <br>
-            golongan 4
-            <input type="text" name= "golongan4"  class="form-control" >
-            <br>
-            asal
-            <input type="text" name= "asal"  class="form-control" >
-            <br>
-            jumlah
-            <input type="num" name= "jumlah"  class="form-control">
-            <br>
-            harga Perolehan
-            <input type="num" name= "harga"  class="form-control" >
-            <br>
-            luas
-            <input type="text" name= "luas"  class="form-control">
-            <br>
-            tanggal Pembelian
-            <input type="date" name= "tanggal"  class="form-control" >
-            <br>
-            penggunaan
-            <input type="text" name= "penggunaan"  class="form-control" >
-            <br>
-            alamat
-            <input type="text" name= "alamat"  class="form-control" >
-            <br>
-            hak tanah
-            <input type="text" name= "thak"  class="form-control">
-            <br>
-            nomor tanah
-            <input type="text" name= "tnomor"  class="form-control" >
-            <br>
-            tanggal di terbitkan
-            <input type="date" name= "tanggalditerbitkan"  class="form-control" >
-            <br>
-            
-            
-            <button type="submit" class="btn btn-primary" name="addnewtanah">Submit</button>
-            </div>
-            </form>
-            
-            
-        </div>
-        </div>
-    </div>
-      <!-- The Modal -->
-      <div class="modal fade" id="gambarmodal">
         <div class="modal-dialog">
         <div class="modal-content">
         

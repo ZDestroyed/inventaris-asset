@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 $conn = mysqli_connect("localhost","root","","stockbarang_db");
 
 //tambah barang
@@ -283,35 +284,82 @@ if(isset($_POST['updatetanah'])){
     $tnomor = $_POST['tnomor'];
     $tanggalditerbitkan = $_POST['tanggalditerbitkan'];
 
-    $update = mysqli_query($conn,"update tanah set 
-    namalembaga='$namalembaga', 
-    namaaset='$namaaset',
-    keterangan='$keterangan' ,
-    kodebarang='$kodebarang',
-    golongan4='$golongan4',
-    asal='$asal',
-    jumlah='$jumlah',
-    harga='$harga',
-    luas='$luas',
-    tanggal='$tanggal',
-    penggunaan='$penggunaan',
-    alamat='$alamat',
-    thak='$thak',
-    tnomor='$tnomor',
-    tanggalditerbitkan='$tanggalditerbitkan'
-    where idtanah = '$idt'");
-    if($update){
-       
-        header('location:tanah.php');
+    $allowed_extension = array('png','jpg'); 
+    $image = $_FILES['file']['name'];
+    $dot = explode('.',$nama);
+    $ekstensi = strtolower(end($dot));
+    $ukuran = $_FILES['file']['size'];
+    $file_tmp = $_FILES['file']['tmp_name'];
+
+    $image = md5(uniqid($nama,true).time()).'.'.$ekstensi;
+
+    if($ukuran==0){
+        //klo gamau upload
+        $update = mysqli_query($conn,"update tanah set 
+        namalembaga='$namalembaga', 
+        namaaset='$namaaset',
+        keterangan='$keterangan' ,
+        kodebarang='$kodebarang',
+        golongan4='$golongan4',
+        asal='$asal',
+        jumlah='$jumlah',
+        harga='$harga',
+        luas='$luas',
+        tanggal='$tanggal',
+        penggunaan='$penggunaan',
+        alamat='$alamat',
+        thak='$thak',
+        tnomor='$tnomor',
+        tanggalditerbitkan='$tanggalditerbitkan',
+        where idtanah = '$idt'");
+        if($update){
+        
+            header('location:tanah.php');
+        }else{
+            echo 'gagal';
+            header('location:tanah.php');
+        }
     }else{
-        echo 'gagal';
-        header('location:tanah.php');
+        //klo upload
+        move_uploaded_file($file_tmp, '../images/'.$image);
+        $update = mysqli_query($conn,"update tanah set 
+        namalembaga='$namalembaga', 
+        namaaset='$namaaset',
+        keterangan='$keterangan' ,
+        kodebarang='$kodebarang',
+        golongan4='$golongan4',
+        asal='$asal',
+        jumlah='$jumlah',
+        harga='$harga',
+        luas='$luas',
+        tanggal='$tanggal',
+        penggunaan='$penggunaan',
+        alamat='$alamat',
+        thak='$thak',
+        tnomor='$tnomor',
+        tanggalditerbitkan='$tanggalditerbitkan',
+        image='$image'
+        where idtanah = '$idt'");
+        if($update){
+        
+            header('location:tanah.php');
+        }else{
+            echo 'gagal';
+            header('location:tanah.php');
+        }
     }
+
+    
 };
 
 //hapus tanah
 if(isset($_POST['hapustanah'])){
     $idt = $_POST['idt'];
+
+    $gambar = mysqli_query($conn,"select from tanah where idtanah='$idt'");
+    $get = mysqli_fetch_array($gambar);
+    $img = '../images/'.$get['image'];
+    unlink($img);
 
     $hapus = mysqli_query($conn,"delete from tanah where idtanah='$idt'");
     if($hapus){
@@ -321,6 +369,54 @@ if(isset($_POST['hapustanah'])){
         header('location:tanah.php');
     }
 };
+
+//gambar 
+if(isset($_POST['uploadgambar'])){
+    $allowed_extension = array('png','jpg'); 
+    $image = $_FILES['file']['name'];
+    $dot = explode('.',$nama);
+    $ekstensi = strtolower(end($dot));
+    $ukuran = $_FILES['file']['size'];
+    $file_tmp = $_FILES['file']['tmp_name'];
+
+    $image = md5(uniqid($nama,true).time()).'.'.$ekstensi;
+    if(in_array($ekstensi, $allowed_extension) === true){
+        if($ukuran < 10000000){
+            move_uploaded_file($file_tmp, '../images/'.$image);
+            $addtotable = mysqli_query($conn,"insert into tanah (image) values('$image')");
+            if($addtotable){
+                header('location:tanah.php');
+            }else{
+                echo 'gagal';
+            header('location:tanah.php');
+            } 
+        }else{
+            //uk lebih
+            echo'
+            <script>
+                alert("ukuran file terlalu besar");
+                window.location.href="tanah.php";
+            </script>
+            ';
+        }
+    }else{
+        //type file
+        echo'
+            <script>
+                alert("file harus jpg/png");
+                window.location.href="tanah.php";
+            </script>
+            ';
+    }
+
+
+    
+}
+
+    
+
+
+
 
 
 

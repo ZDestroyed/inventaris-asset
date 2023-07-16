@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 11, 2023 at 10:51 AM
+-- Generation Time: Jul 15, 2023 at 01:48 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -48,7 +48,8 @@ CREATE TABLE `alatmesin` (
   `nopolisi` varchar(25) NOT NULL,
   `bpkb` varchar(25) NOT NULL,
   `kondisi` varchar(25) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL
+  `keteranganlainnya` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -73,7 +74,8 @@ CREATE TABLE `asetlainlain` (
   `titikkoor` varchar(50) NOT NULL,
   `bahan` varchar(50) NOT NULL,
   `ukuran` varchar(50) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL
+  `keteranganlainnya` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -105,7 +107,8 @@ CREATE TABLE `asettetaplain` (
   `asettitik` varchar(50) NOT NULL,
   `asetketerangan` varchar(50) NOT NULL,
   `kondisi` varchar(50) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL
+  `keteranganlainnya` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -127,7 +130,8 @@ CREATE TABLE `asettidakberwujud` (
   `asal` varchar(50) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga` int(11) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL
+  `keteranganlainnya` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -153,7 +157,8 @@ CREATE TABLE `gedungbangunan` (
   `kondisi` varchar(20) NOT NULL,
   `tingkat` varchar(20) NOT NULL,
   `beton` varchar(20) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL
+  `keteranganlainnya` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -178,7 +183,8 @@ CREATE TABLE `jalan` (
   `jumlah` int(11) NOT NULL,
   `harga` int(11) NOT NULL,
   `kondisi` varchar(50) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL
+  `keteranganlainnya` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -228,7 +234,8 @@ CREATE TABLE `kemitraan` (
   `titikkoor` varchar(50) NOT NULL,
   `bahan` varchar(50) NOT NULL,
   `ukuran` varchar(50) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL
+  `keteranganlainnya` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -253,7 +260,8 @@ CREATE TABLE `konstruksi` (
   `titikkoor` varchar(50) NOT NULL,
   `bahan` varchar(50) NOT NULL,
   `ukuran` varchar(50) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL
+  `keteranganlainnya` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -322,35 +330,40 @@ CREATE TABLE `stock` (
   `namabarang` varchar(25) NOT NULL,
   `deskripsi` varchar(25) NOT NULL,
   `stock` int(11) NOT NULL,
-  `image` text DEFAULT NULL
+  `image` text DEFAULT NULL,
+  `namalembaga` varchar(50) NOT NULL,
+  `namaaset` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `stock`
 --
 
-INSERT INTO `stock` (`idbarang`, `namabarang`, `deskripsi`, `stock`, `image`) VALUES
-(11, 'kursi merah banget', 'bekas', 105, NULL),
-(12, 'sofa', 'baru', 10, NULL),
-(14, 'rak besi', 'baru', 0, NULL),
-(15, 'rak plastik', 'baru', 0, NULL),
-(16, 'komputer', 'bekas', 0, NULL),
-(17, 'karpet', 'baru', 0, NULL),
-(18, 'pot', 'baru', 0, NULL),
-(19, 'sandal', 'baru', 0, NULL),
-(20, 'kipas', 'baru', 0, NULL),
-(21, 'tv', 'baru', 0, NULL),
-(22, 'meja', 'baru', 0, NULL),
-(23, 'jam', 'baru', 0, NULL),
-(25, 'monyet', 'hewan', 0, NULL),
-(26, 'wahyu', 'hewan', 10, 'monyet.jpg'),
-(27, 'gajah', 'hewan', 10, ''),
-(28, 'gajah12', 'rusak', 10, 'monyet.jpg'),
-(29, 'qwed', 'baru', 10, 'monyet.jpg'),
-(30, 'kursi merah banget', 'baru', 10, ''),
-(31, 'lok', 'lok', 5, 'monyet.jpg'),
-(32, 'mkl', 'mlk', 1, 'WhatsApp Image 2023-02-15 at 14.39.19.jpeg'),
-(33, 'vee', 'dsv', 10, 'uploads/WhatsApp Image 2023-02-15 at 14.39.19.jpeg');
+INSERT INTO `stock` (`idbarang`, `namabarang`, `deskripsi`, `stock`, `image`, `namalembaga`, `namaaset`) VALUES
+(11, 'kursi mer', 'bekas', 105, NULL, 'sad', 'cxa'),
+(12, 'sofa', 'baru', 10, NULL, '', ''),
+(14, 'rak besi', 'baru', 0, NULL, '', ''),
+(15, 'rak plastik', 'baru', 0, NULL, '', ''),
+(16, 'komputer', 'bekas', 0, NULL, '', ''),
+(17, 'karpet', 'baru', 0, NULL, '', ''),
+(18, 'pot', 'baru', 0, NULL, '', ''),
+(19, 'sandal', 'baru', 0, NULL, '', ''),
+(20, 'kipas', 'baru', 0, NULL, '', ''),
+(21, 'tv', 'baru', 0, NULL, '', ''),
+(22, 'meja', 'baru', 0, NULL, '', ''),
+(23, 'jam', 'baru', 0, NULL, '', ''),
+(25, 'monyet', 'hewan', 0, NULL, '', ''),
+(26, 'wahyu', 'hewan', 10, 'monyet.jpg', '', ''),
+(27, 'gajah', 'hewan', 10, '', '', ''),
+(28, 'gajah12', 'rusak', 10, 'monyet.jpg', '', ''),
+(29, 'qwed', 'baru', 10, 'monyet.jpg', '', ''),
+(30, 'kursi merah banget', 'baru', 10, '', '', ''),
+(31, 'lok', 'lok', 5, 'monyet.jpg', '', ''),
+(32, 'mkl', 'mlk', 1, 'WhatsApp Image 2023-02-15 at 14.39.19.jpeg', '', ''),
+(33, 'vee', 'dsv', 10, 'uploads/WhatsApp Image 2023-02-15 at 14.39.19.jpeg', '', ''),
+(34, 'fgsd', 'rge', 34, NULL, 'dsv', 'sdvc'),
+(35, 'xcasdfv', 'xcv', 324, NULL, '', ''),
+(36, '2rw', '', 234, NULL, 'wqe', '');
 
 -- --------------------------------------------------------
 
@@ -363,7 +376,7 @@ CREATE TABLE `tanah` (
   `namalembaga` varchar(25) NOT NULL,
   `namaaset` varchar(25) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `kodebarang` int(11) NOT NULL,
+  `kodebarang` varchar(20) NOT NULL,
   `golongan4` varchar(50) NOT NULL,
   `asal` varchar(50) NOT NULL,
   `jumlah` int(11) NOT NULL,
@@ -375,15 +388,17 @@ CREATE TABLE `tanah` (
   `thak` varchar(25) NOT NULL,
   `tnomor` varchar(11) NOT NULL,
   `tanggalditerbitkan` date NOT NULL,
-  `ketranganlainnya` varchar(50) NOT NULL
+  `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tanah`
 --
 
-INSERT INTO `tanah` (`idtanah`, `namalembaga`, `namaaset`, `keterangan`, `kodebarang`, `golongan4`, `asal`, `jumlah`, `harga`, `luas`, `tanggal`, `penggunaan`, `alamat`, `thak`, `tnomor`, `tanggalditerbitkan`, `ketranganlainnya`) VALUES
-(1, 'asc', 'cas', 'acs', 123, 'asd', '324234', 234, 98, '098', '2023-07-12', '098', '90809', '89i98', '9090', '1990-09-09', '0909');
+INSERT INTO `tanah` (`idtanah`, `namalembaga`, `namaaset`, `keterangan`, `kodebarang`, `golongan4`, `asal`, `jumlah`, `harga`, `luas`, `tanggal`, `penggunaan`, `alamat`, `thak`, `tnomor`, `tanggalditerbitkan`, `image`) VALUES
+(1, 'colon', 'caszxczx', 'acs', '123', 'asd', '324234      ', 234, 98, '098', '2023-07-12', '098', '90809', '89i98', '9090', '2023-07-13', NULL),
+(2, 'sadz', 'jn', 'jhn', '89', '897', '87', 78, 7856, '98', '8997-08-09', 'jb', 'njkug', 'hbh', '897', '2000-08-09', NULL),
+(4, 'lolo', 'ahjbc', 'kjb', 'jk', 'njk', 'ih', 9, 67, 'bhjb', '2023-07-13', 'kj', 'jn', 'jnnk', 'lnl', '2023-07-13', NULL);
 
 --
 -- Indexes for dumped tables
@@ -517,13 +532,13 @@ ALTER TABLE `masuk`
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tanah`
 --
 ALTER TABLE `tanah`
-  MODIFY `idtanah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idtanah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
