@@ -96,6 +96,7 @@ require '../cek.php';
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Gambar</th>
                                                 <th>Nama lembaga</th>
                                                 <th>nama aset</th>
                                                 <th>keterangan</th>
@@ -126,14 +127,22 @@ require '../cek.php';
                                                 $thak = $data['thak'];
                                                 $tnomor = $data['tnomor'];
                                                 $tanggalditerbitkan = $data['tanggalditerbitkan'];
+                                                $gambar = $data['image'];
                                                 $idt = $data['idtanah'];
-                                                $gambar = $_FILES['image'];
-                                        
+                                                
+                                                if($gambar==null){
+                                                    //gaada gambar
+                                                    $img = 'No Photo';
+                                                }else{
+                                                    //ada
+                                                    $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                                                }
                                                  //echo json_encode($namalembaga);
                                             ?>
                                            
                                             <tr>
                                                 <td><?=$i++;?></td>
+                                                <td><?=$img;?></td>
                                                 <td><?= $namalembaga;?></td>
                                                 <td><?= $namaaset;?></td>
                                                 <td><?= $keterangan;?></td>
@@ -151,10 +160,7 @@ require '../cek.php';
                                                 <button class="btn btn-warning text-white" id="accesscamera" data-toggle="modal" data-target="#photoModal<?$idt;?>">
                                                     Capture Photo
                                                 </button>
-                                                <input type="hidden" name="tambahgambar" value="<?=$idt;?>">
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#gambarmodal<?=$idt;?>">
-                                                    Upload gambar
-                                                </button>
+                                                
                                                 </td>
                                                 
                                             </tr>
@@ -251,6 +257,7 @@ require '../cek.php';
                                                     <input type="date" name= "tanggalditerbitkan" value="<?=$tanggalditerbitkan;?> "class="form-control" >
                                                     <br>
                                                     <input type="file" name= "file" class="form-control" >
+                                                    <br>
                                                     <input type="hidden" name="idt" value="<?=$idt;?>">
                                                     <button type="submit" class="btn btn-primary" id="updatetanah" name="updatetanah">update</button>
                                                     </div>
@@ -289,27 +296,7 @@ require '../cek.php';
                                                 </div>
                                             </div>
 
-                                             <!-- upload gambar -->
-                                             <div class="modal fade" id="gambarmodal<?=$idt;?>">
-                                                <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                
-                                                    <!-- Modal Header -->
-                                                    <div class="modal-header">
-                                                    <h4 class="modal-title">Upload Gambar</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    </div>
-                                                    
-                                                    <!-- Modal body -->
-                                                    <form method="post">
-                                                    <div class="modal-body"> 
-                                                    <input type="file" name= "image" value="<?=$gambar;?>" class="form-control" required>
-                                                    <br>
-                                                    
-                                                    <input type="hidden" name="idt" value="<?=$idt;?>">
-                                                    <button type="submit" class="btn btn-primary" id="uploadgambar" name="uploadgambar">upload</button>
-                                                    </div>
-                                                    </form>
+                                            
 
 
                                 
@@ -405,6 +392,7 @@ require '../cek.php';
             tanggal di terbitkan
             <input type="date" name= "tanggalditerbitkan"  class="form-control" >
             <br>
+
             
             
             <button type="submit" class="btn btn-primary" name="addnewtanah">Submit</button>

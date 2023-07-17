@@ -106,6 +106,7 @@ require '../cek.php';
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Gambar</th>
                                                 <th>Nama lembaga</th>
                                                 <th>nama aset</th>
                                                 <th>keterangan</th>
