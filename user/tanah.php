@@ -21,7 +21,7 @@ require '../cek.php';
 
         <style>
             .zoomable{
-                width: 100px;
+                width: 70px;
             }
             .zoomable:hover{
                 transform: scale(2.5);
@@ -162,7 +162,8 @@ require '../cek.php';
                                                 <button class="btn btn-warning text-white" id="accesscamera" data-toggle="modal" data-target="#photoModal<?$idt;?>">
                                                     Capture Photo
                                                 </button>
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#gambarmodal<?=$idt;?>">
+                                                <button type="button" class="<?php if (empty($gambar)) { echo "btn btn-warning";
+                                                }else{ echo "btn btn-success";} ?>" data-toggle="modal" data-target="#gambarmodal<?=$idt;?>">
                                                     Upload gambar
                                                 </button>
                                                 <a href="detailtanah.php?id=<?=$idt;?>" class="w3-button w3-teal">Detail</a>
@@ -241,12 +242,13 @@ require '../cek.php';
                                                     <!-- Modal body -->
                                                     <form method="post" enctype="multipart/form-data">
                                                     <div class="modal-body"> 
+                                                        <input type="hidden" name="id" value="<?=$idt?>">
                                                     <input type="file" name= "file"  class="form-control" >
                                                     <!-- <input type="file" name= "image" value="<?=$image;?>" class="form-control" > -->
                                                     <br>
                                                     
                                                     <!-- <input type="hidden" name="idt" value="<?=$idt;?>"> -->
-                                                    <button type="submit" class="btn btn-primary" id="uploadgambar" name="uploadgambar">upload</button>
+                                                    <button type="submit" class="btn btn-primary" name="uploadgambar">upload</button>
                                                     </div>
                                                     </form>
 

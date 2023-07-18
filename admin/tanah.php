@@ -19,6 +19,15 @@ require '../cek.php';
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
+    <style>
+            .zoomable{
+                width: 70px;
+            }
+            .zoomable:hover{
+                transform: scale(2.5);
+                transition: 0.2s ease;
+            }
+        </style>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="index.html">DPPPAKB</a>
@@ -160,6 +169,10 @@ require '../cek.php';
                                                 <button class="btn btn-warning text-white" id="accesscamera" data-toggle="modal" data-target="#photoModal<?$idt;?>">
                                                     Capture Photo
                                                 </button>
+                                                <button type="button" class="<?php if (empty($gambar)) { echo "btn btn-warning";
+                                                }else{ echo "btn btn-success";} ?>" data-toggle="modal" data-target="#gambarmodal<?=$idt;?>">
+                                                    Upload gambar
+                                                </button>
                                                 
                                                 </td>
                                                 
@@ -194,6 +207,33 @@ require '../cek.php';
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!-- upload gambar -->
+                                            <div class="modal fade" id="gambarmodal<?=$idt;?>">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                    <h4 class="modal-title">Upload Gambar</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    
+                                                    <!-- Modal body -->
+                                                    <form method="post" enctype="multipart/form-data">
+                                                    <div class="modal-body"> 
+                                                        <input type="hidden" name="id" value="<?=$idt?>">
+                                                    <input type="file" name= "file"  class="form-control" >
+                                                    <!-- <input type="file" name= "image" value="<?=$image;?>" class="form-control" > -->
+                                                    <br>
+                                                    
+                                                    <!-- <input type="hidden" name="idt" value="<?=$idt;?>"> -->
+                                                    <button type="submit" class="btn btn-primary" name="uploadgambar">upload</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 
 
                                             <!-- edit Modal -->
@@ -255,8 +295,6 @@ require '../cek.php';
                                                     <br>
                                                     tanggal di terbitkan
                                                     <input type="date" name= "tanggalditerbitkan" value="<?=$tanggalditerbitkan;?> "class="form-control" >
-                                                    <br>
-                                                    <input type="file" name= "file" class="form-control" >
                                                     <br>
                                                     <input type="hidden" name="idt" value="<?=$idt;?>">
                                                     <button type="submit" class="btn btn-primary" id="updatetanah" name="updatetanah">update</button>
