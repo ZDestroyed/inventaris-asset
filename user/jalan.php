@@ -30,7 +30,7 @@ require '../cek.php';
         </style>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">DPPPAKB</a>
+            <a class="navbar-brand" href="#">DPPPAKB</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             
             <!-- Navbar-->
@@ -90,7 +90,7 @@ require '../cek.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Tanah</h1>
+                        <h1 class="mt-4">Jalan,Irigasi dan Jaringan</h1>
                         
                         
                         <div class="card mb-4">
@@ -113,27 +113,27 @@ require '../cek.php';
 
                                             
                                             <?php
-                                            $ambilsemuadatatanah = mysqli_query($conn,"select * from tanah");
+                                            $ambilsemuadatajalan = mysqli_query($conn,"select * from jalan");
                                             $i = 1;
-                                            while($data=mysqli_fetch_array($ambilsemuadatatanah)){
+                                            while($data=mysqli_fetch_array($ambilsemuadatajalan)){
                                                 
                                                 $namalembaga = $data['namalembaga'];
                                                 $namaaset = $data['namaaset'];
                                                 $keterangan = $data['keterangan'];
                                                 $kodebarang = $data['kodebarang'];
                                                 $golongan4 = $data['golongan4'];
+                                                $panjang = $data['panjang'];
+                                                $lebar = $data['lebar'];
+                                                $luas = $data['luas'];
+                                                $alamat = $data['alamat'];
+                                                $tanggal = $data['tanggal'];
                                                 $asal = $data['asal'];
                                                 $jumlah = $data['jumlah'];
                                                 $harga = $data['harga'];
-                                                $luas = $data['luas'];
-                                                $tanggal = $data['tanggal'];
-                                                $penggunaan = $data['penggunaan'];
-                                                $alamat = $data['alamat'];
-                                                $thak = $data['thak'];
-                                                $tnomor = $data['tnomor'];
-                                                $tanggalditerbitkan = $data['tanggalditerbitkan'];
+                                                $kondisi = $data['kondisi'];
+                                                $keteranganlainnya = $data['keteranganlainnya'];
                                                 $gambar = $data['image'];
-                                                $idt = $data['idtanah'];
+                                                $idjalan = $data['idjalan'];
                                                 
                                                 if($gambar==null){
                                                     //gaada gambar
@@ -154,10 +154,9 @@ require '../cek.php';
                                                 <td>
                                                     
                                                 
-                                                <a href="detailtanah.php?id=<?=$idt;?>" class="w3-button w3-teal">Detail</a>
-                                               
+                                                <a href="detailjalan.php?id=<?=$idjalan;?>" class="w3-button w3-teal">Detail</a>
                                                 <button type="button" class="<?php if (empty($gambar)) { echo "btn btn-warning";
-                                                }else{ echo "btn btn-success";} ?>" data-toggle="modal" data-target="#gambarmodal<?=$idt;?>">
+                                                }else{ echo "btn btn-success";} ?>" data-toggle="modal" data-target="#gambarmodal<?=$idjalan;?>">
                                                     Upload gambar
                                                 </button>
                                                 
@@ -166,9 +165,9 @@ require '../cek.php';
                                             </tr>
                                         
 
-                                            
+                                             
                                             <!-- upload gambar -->
-                                            <div class="modal fade" id="gambarmodal<?=$idt;?>">
+                                            <div class="modal fade" id="gambarmodal<?=$idjalan;?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 
@@ -181,13 +180,13 @@ require '../cek.php';
                                                     <!-- Modal body -->
                                                     <form method="post" enctype="multipart/form-data">
                                                     <div class="modal-body"> 
-                                                        <input type="hidden" name="id" value="<?=$idt?>">
+                                                        <input type="hidden" name="id" value="<?=$idjalan?>">
                                                     <input type="file" name= "file"  class="form-control" >
                                                     <!-- <input type="file" name= "image" value="<?=$image;?>" class="form-control" > -->
                                                     <br>
                                                     
-                                                    <!-- <input type="hidden" name="idt" value="<?=$idt;?>"> -->
-                                                    <button type="submit" class="btn btn-primary" name="uploadgambar">upload</button>
+                                                    <!-- <input type="hidden" name="idjalan" value="<?=$idjalan;?>"> -->
+                                                    <button type="submit" class="btn btn-primary" name="uploadgambarjalan">upload</button>
                                                     </div>
                                                     </form>
                                                 </div>
@@ -196,7 +195,7 @@ require '../cek.php';
 
 
                                             <!-- edit Modal -->
-                                            <div class="modal fade" id="edit<?=$idt;?>">
+                                            <div class="modal fade" id="edit<?=$idjalan;?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 
@@ -210,7 +209,7 @@ require '../cek.php';
                                                     <form method="post" enctype="multipart/form-data">
                                                     <div class="modal-body">
                                                     
-                                                    nama lembaga 
+                                                     nama lembaga 
                                                     <input type="text" name= "namalembaga" value="<?=$namalembaga;?>" class="form-control" required>
                                                     <br>
                                                     nama aset
@@ -225,38 +224,41 @@ require '../cek.php';
                                                     golongan di lv.4
                                                     <input type="text" name= "golongan4" value="<?=$golongan4;?>" class="form-control" >
                                                     <br>
+                                                    panjang
+                                                    <input type="text" name= "panjang" value="<?=$panjang;?>" class="form-control" >
+                                                    <br>
+                                                    lebar
+                                                    <input type="text" name= "lebar" value="<?=$lebar;?>" class="form-control" >
+                                                    <br>
+                                                    luas
+                                                    <input type="text" name= "luas" value="<?=$luas;?>" class="form-control" >
+                                                    <br>
+                                                    alamat
+                                                    <input type="text" name= "alamat" value="<?=$alamat;?>" class="form-control" >
+                                                    <br>
+                                                    tanggal 
+                                                    <input type="date" name= "tanggal" value="<?=$tanggal;?>" class="form-control" >
+                                                    <br>
                                                     asal Usul
                                                     <input type="text" name= "asal" value="<?=$asal;?> "class=" form-control" >
                                                     <br>
+                                                    
                                                     jumlah
                                                     <input type="num" name= "jumlah" value="<?=$jumlah;?>" class="form-control" >
                                                     <br>
                                                     harga Perolehan
                                                     <input type="num" name= "harga" value="<?=$harga;?>" class="form-control" >
                                                     <br>
-                                                    luas
-                                                    <input type="text" name= "luas" value="<?=$luas;?>" class="form-control" >
+                                                    
+                                                    kondisi
+                                                    <input type="text" name= "kondisi" value="<?=$kondisi;?> "class="form-control" >
                                                     <br>
-                                                    tanggal Pembelian
-                                                    <input type="date" name= "tanggal" value="<?=$tanggal;?>" class="form-control" >
+                                                    
+                                                    keteranganlainnya
+                                                    <input type="text" name= "keteranganlainnya" value="<?=$keteranganlainnya;?>" class="form-control" >
                                                     <br>
-                                                    penggunaan
-                                                    <input type="text" name= "penggunaan" value="<?=$penggunaan;?>" class="form-control" >
-                                                    <br>
-                                                    alamat
-                                                    <input type="text" name= "alamat" value="<?=$alamat;?>" class="form-control" >
-                                                    <br>
-                                                    hak tanah
-                                                    <input type="text" name= "thak" value="<?=$thak;?>" class="form-control" >
-                                                    <br>
-                                                    nomor tanah
-                                                    <input type="text" name= "tnomor" value="<?=$tnomor;?>" class="form-control" >
-                                                    <br>
-                                                    tanggal di terbitkan
-                                                    <input type="date" name= "tanggalditerbitkan" value="<?=$tanggalditerbitkan;?> "class="form-control" >
-                                                    <br>
-                                                    <input type="hidden" name="idt" value="<?=$idt;?>">
-                                                    <button type="submit" class="btn btn-primary" id="updatetanah" name="updatetanah">update</button>
+                                                    <input type="hidden" name="idjalan" value="<?=$idjalan;?>">
+                                                    <button type="submit" class="btn btn-primary" id="updatejalan" name="updatejalan">update</button>
                                                     </div>
                                                     </form>
                                                     
@@ -267,7 +269,7 @@ require '../cek.php';
 
 
                                             <!-- delete Modal -->
-                                            <div class="modal fade" id="delete<?=$idt;?>">
+                                            <div class="modal fade" id="delete<?=$idjalan;?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 
@@ -281,10 +283,10 @@ require '../cek.php';
                                                     <form method="post">
                                                     <div class="modal-body">
                                                         Ingin Menghapus <?=$namaaset;?>?
-                                                        <input type="hidden" name="idt" value="<?=$idt;?>">
+                                                        <input type="hidden" name="idjalan" value="<?=$idjalan;?>">
                                                     <br>
                                                     <br>
-                                                    <button type="submit" class="btn btn-danger" name="hapustanah">hapus</button>
+                                                    <button type="submit" class="btn btn-danger" name="hapusjalan">hapus</button>
                                                     </div>
                                                     </form>
                                                     
@@ -326,8 +328,8 @@ require '../cek.php';
         <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
         <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
    
-        <script src="./plugin/sweetalert/sweetalert.min.js"></script>
-        <script src="./plugin/webcamjs/webcam.min.js"></script>
+        <script src="../plugin/sweetalert/sweetalert.min.js"></script>
+        <script src="../plugin/webcamjs/webcam.min.js"></script>
         
     </body>
            <!-- The Modal -->
@@ -337,7 +339,7 @@ require '../cek.php';
         
             <!-- Modal Header -->
             <div class="modal-header">
-            <h4 class="modal-title">Tambah Tanah</h4>
+            <h4 class="modal-title">Tambah Data</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
@@ -345,54 +347,55 @@ require '../cek.php';
             <form method="post">
             <div class="modal-body">
             nama lembaga 
-            <input type="text" name= "namalembaga"  class="form-control" required>
-            <br>
-            nama aset
-            <input type="text" name= "namaaset"  class="form-control" required>
-            <br>
-            keterangan
-            <input type="text" name= "keterangan"  class="form-control" required>
-            <br>
-            kode barang
-            <input type="text" name= "kodebarang"  class="form-control">
-            <br>
-            golongan 4
-            <input type="text" name= "golongan4"  class="form-control" >
-            <br>
-            asal
-            <input type="text" name= "asal"  class="form-control" >
-            <br>
-            jumlah
-            <input type="num" name= "jumlah"  class="form-control">
-            <br>
-            harga Perolehan
-            <input type="num" name= "harga"  class="form-control" >
-            <br>
-            luas
-            <input type="text" name= "luas"  class="form-control">
-            <br>
-            tanggal Pembelian
-            <input type="date" name= "tanggal"  class="form-control" >
-            <br>
-            penggunaan
-            <input type="text" name= "penggunaan"  class="form-control" >
-            <br>
-            alamat
-            <input type="text" name= "alamat"  class="form-control" >
-            <br>
-            hak tanah
-            <input type="text" name= "thak"  class="form-control">
-            <br>
-            nomor tanah
-            <input type="text" name= "tnomor"  class="form-control" >
-            <br>
-            tanggal di terbitkan
-            <input type="date" name= "tanggalditerbitkan"  class="form-control" >
-            <br>
+                                                    <input type="text" name= "namalembaga"  class="form-control" required>
+                                                    <br>
+                                                    nama aset
+                                                    <input type="text" name= "namaaset" class="form-control" required>
+                                                    <br>
+                                                    keterangan
+                                                    <input type="text" name= "keterangan" class="form-control" required>
+                                                    <br>
+                                                    kode barang
+                                                    <input type="text" name= "kodebarang"  class="form-control" >
+                                                    <br>
+                                                    golongan di lv.4
+                                                    <input type="text" name= "golongan4"  class="form-control" >
+                                                    <br>
+                                                    panjang
+                                                    <input type="text" name= "panjang"  class="form-control" >
+                                                    <br>
+                                                    lebar
+                                                    <input type="text" name= "lebar"  class="form-control" >
+                                                    <br>
+                                                    luas
+                                                    <input type="text" name= "luas"  class="form-control" >
+                                                    <br>
+                                                    alamat
+                                                    <input type="text" name= "alamat" class="form-control" >
+                                                    <br>
+                                                    tanggal 
+                                                    <input type="date" name= "tanggal" class="form-control" >
+                                                    <br>
+                                                    asal Usul
+                                                    <input type="text" name= "asal" class=" form-control" >
+                                                    <br>
+                                                    
+                                                    jumlah
+                                                    <input type="num" name= "jumlah" class="form-control" >
+                                                    <br>
+                                                    harga Perolehan
+                                                    <input type="num" name= "harga" class="form-control" >
+                                                    <br>
+                                                    
+                                                    kondisi
+                                                    <input type="text" name= "kondisi" class="form-control" >
+                                                    <br>
+                                                    
+                                                    keteranganlainnya
+                                                    <input type="text" name= "keteranganlainnya" class="form-control" >
+                                                    <br>
 
-            
-            
-            <button type="submit" class="btn btn-primary" name="addnewtanah">Submit</button>
+            <button type="submit" class="btn btn-primary" name="addnewjalan">Submit</button>
             </div>
             </form>
             
@@ -400,75 +403,8 @@ require '../cek.php';
         </div>
         </div>
     </div>
-      <!-- The Modal -->
-      <div class="modal fade" id="gambarmodal">
-        <div class="modal-dialog">
-        <div class="modal-content">
-        
-            <!-- Modal Header -->
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Tanah</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            
-            <!-- Modal body -->
-            <form method="post">
-            <div class="modal-body">
-            nama lembaga 
-            <input type="text" name= "namalembaga"  class="form-control" required>
-            <br>
-            nama aset
-            <input type="text" name= "namaaset"  class="form-control" required>
-            <br>
-            keterangan
-            <input type="text" name= "keterangan"  class="form-control" required>
-            <br>
-            kode barang
-            <input type="text" name= "kodebarang"  class="form-control">
-            <br>
-            golongan 4
-            <input type="text" name= "golongan4"  class="form-control" >
-            <br>
-            asal
-            <input type="text" name= "asal"  class="form-control" >
-            <br>
-            jumlah
-            <input type="num" name= "jumlah"  class="form-control">
-            <br>
-            harga Perolehan
-            <input type="num" name= "harga"  class="form-control" >
-            <br>
-            luas
-            <input type="text" name= "luas"  class="form-control">
-            <br>
-            tanggal Pembelian
-            <input type="date" name= "tanggal"  class="form-control" >
-            <br>
-            penggunaan
-            <input type="text" name= "penggunaan"  class="form-control" >
-            <br>
-            alamat
-            <input type="text" name= "alamat"  class="form-control" >
-            <br>
-            hak tanah
-            <input type="text" name= "thak"  class="form-control">
-            <br>
-            nomor tanah
-            <input type="text" name= "tnomor"  class="form-control" >
-            <br>
-            tanggal di terbitkan
-            <input type="date" name= "tanggalditerbitkan"  class="form-control" >
-            <br>
-            
-            
-            <button type="submit" class="btn btn-primary" name="addnewtanah">Submit</button>
-            </div>
-            </form>
-            
-            
-        </div>
-        </div>
-    </div>
+
+     
             
         
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2023 at 01:48 PM
+-- Generation Time: Jul 31, 2023 at 06:40 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -38,7 +38,7 @@ CREATE TABLE `alatmesin` (
   `type` varchar(25) NOT NULL,
   `ukuran` varchar(25) NOT NULL,
   `bahan` varchar(25) NOT NULL,
-  `tglpembelian` date NOT NULL,
+  `tanggal` date NOT NULL,
   `asal` varchar(25) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga` int(11) NOT NULL,
@@ -48,9 +48,16 @@ CREATE TABLE `alatmesin` (
   `nopolisi` varchar(25) NOT NULL,
   `bpkb` varchar(25) NOT NULL,
   `kondisi` varchar(25) NOT NULL,
-  `keteranganlainnya` varchar(50) NOT NULL,
-  `image` varchar(200) DEFAULT NULL
+  `image` varchar(200) DEFAULT NULL,
+  `keteranganlainnya` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `alatmesin`
+--
+
+INSERT INTO `alatmesin` (`idadm`, `namalembaga`, `namaaset`, `keterangan`, `kodebarang`, `golongan4`, `merk`, `type`, `ukuran`, `bahan`, `tanggal`, `asal`, `jumlah`, `harga`, `nopabrik`, `norangka`, `nomesin`, `nopolisi`, `bpkb`, `kondisi`, `image`, `keteranganlainnya`) VALUES
+(1, 'asc', 'cas', 'acs', 'asd', 'asd', 'asd', 'asd', 'asd', 'asd', '2023-07-19', 'asd', 234, 234, 'zxc', 'sd', 'xvxc', 'xcv', 'xcv', 'xcv', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -59,7 +66,7 @@ CREATE TABLE `alatmesin` (
 --
 
 CREATE TABLE `asetlainlain` (
-  `noall` int(11) NOT NULL,
+  `idall` int(11) NOT NULL,
   `namalembaga` varchar(50) NOT NULL,
   `namaaset` varchar(50) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
@@ -161,6 +168,13 @@ CREATE TABLE `gedungbangunan` (
   `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `gedungbangunan`
+--
+
+INSERT INTO `gedungbangunan` (`nogb`, `namalembaga`, `namaaset`, `keterangan`, `kodebarang`, `golongan4`, `luas`, `alamat`, `titikkoor`, `tanggal`, `asal`, `jumlah`, `harga`, `kondisi`, `tingkat`, `beton`, `keteranganlainnya`, `image`) VALUES
+(1, 'zxc', 'cas', 'acs', 'wd', 'sdf', 'sdfg', 'vs', 'sdf', '2023-07-25', 'sdf ', 23, 234, 'sf ', 'sdf', 'sdf', 'sdf', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -186,31 +200,6 @@ CREATE TABLE `jalan` (
   `keteranganlainnya` varchar(50) NOT NULL,
   `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `keluar`
---
-
-CREATE TABLE `keluar` (
-  `idkeluar` int(11) NOT NULL,
-  `idbarang` int(11) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
-  `penerima` varchar(50) NOT NULL,
-  `qty` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `keluar`
---
-
-INSERT INTO `keluar` (`idkeluar`, `idbarang`, `tanggal`, `penerima`, `qty`) VALUES
-(1, 1, '2023-06-30 15:39:52', 'adi', 5),
-(2, 10, '2023-07-02 03:42:31', 'adi', 10),
-(3, 10, '2023-07-02 04:34:48', 'sdf', 20),
-(5, 11, '2023-07-02 08:51:06', 'adi', 10),
-(7, 11, '2023-07-02 10:52:56', 'ali', 5);
 
 -- --------------------------------------------------------
 
@@ -241,12 +230,35 @@ CREATE TABLE `kemitraan` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kode108`
+--
+
+CREATE TABLE `kode108` (
+  `id108` int(11) NOT NULL,
+  `akun` int(11) NOT NULL,
+  `kelompok` int(11) NOT NULL,
+  `jenis` int(11) NOT NULL,
+  `objek` int(11) NOT NULL,
+  `rincian` int(11) NOT NULL,
+  `subrincian` int(11) NOT NULL,
+  `subsubrincian` int(11) NOT NULL,
+  `kode108` int(11) NOT NULL,
+  `lv5` varchar(50) NOT NULL,
+  `lv4` varchar(50) NOT NULL,
+  `lv3` varchar(50) NOT NULL,
+  `lv2` varchar(50) NOT NULL,
+  `lv1` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `konstruksi`
 --
 
 CREATE TABLE `konstruksi` (
   `nokonstruksi` int(11) NOT NULL,
-  `namalamebaga` varchar(50) NOT NULL,
+  `namalembaga` varchar(50) NOT NULL,
   `namaaset` varchar(50) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
   `kodebarang` varchar(50) NOT NULL,
@@ -284,86 +296,7 @@ CREATE TABLE `login` (
 INSERT INTO `login` (`iduser`, `email`, `password`, `role`) VALUES
 (1, 'admin@gmail.com', 'admin', 'admin'),
 (2, 'log@gmail.com', '123', 'user'),
-(4, 'im@gmail.com', '1234', 'admin'),
-(5, 'as@gmail.com', '123', 'user');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `masuk`
---
-
-CREATE TABLE `masuk` (
-  `idmasuk` int(11) NOT NULL,
-  `idbarang` int(11) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
-  `keterangan` varchar(50) NOT NULL,
-  `qty` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `masuk`
---
-
-INSERT INTO `masuk` (`idmasuk`, `idbarang`, `tanggal`, `keterangan`, `qty`) VALUES
-(1, 1, '2023-06-30 14:38:21', 'as', 100),
-(2, 1, '2023-06-30 14:52:20', 'ali', 9),
-(3, 1, '2023-06-30 14:53:04', 'adi', 9),
-(5, 3, '2023-06-30 15:11:17', 'adi', 10),
-(6, 3, '2023-06-30 15:25:55', '', 5),
-(7, 1, '2023-06-30 15:30:47', 'adi', 11),
-(8, 1, '2023-06-30 15:33:45', 'popo', 10),
-(10, 1, '2023-07-01 12:55:22', 'sdf', 10),
-(15, 8, '2023-07-01 14:24:10', 'popo', 10),
-(20, 10, '2023-07-02 03:27:21', 'popo', 50),
-(22, 11, '2023-07-02 04:38:51', 'adi', 100),
-(24, 12, '2023-07-02 09:33:32', 'adi', 10);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stock`
---
-
-CREATE TABLE `stock` (
-  `idbarang` int(11) NOT NULL,
-  `namabarang` varchar(25) NOT NULL,
-  `deskripsi` varchar(25) NOT NULL,
-  `stock` int(11) NOT NULL,
-  `image` text DEFAULT NULL,
-  `namalembaga` varchar(50) NOT NULL,
-  `namaaset` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `stock`
---
-
-INSERT INTO `stock` (`idbarang`, `namabarang`, `deskripsi`, `stock`, `image`, `namalembaga`, `namaaset`) VALUES
-(11, 'kursi mer', 'bekas', 105, NULL, 'sad', 'cxa'),
-(12, 'sofa', 'baru', 10, NULL, '', ''),
-(14, 'rak besi', 'baru', 0, NULL, '', ''),
-(15, 'rak plastik', 'baru', 0, NULL, '', ''),
-(16, 'komputer', 'bekas', 0, NULL, '', ''),
-(17, 'karpet', 'baru', 0, NULL, '', ''),
-(18, 'pot', 'baru', 0, NULL, '', ''),
-(19, 'sandal', 'baru', 0, NULL, '', ''),
-(20, 'kipas', 'baru', 0, NULL, '', ''),
-(21, 'tv', 'baru', 0, NULL, '', ''),
-(22, 'meja', 'baru', 0, NULL, '', ''),
-(23, 'jam', 'baru', 0, NULL, '', ''),
-(25, 'monyet', 'hewan', 0, NULL, '', ''),
-(26, 'wahyu', 'hewan', 10, 'monyet.jpg', '', ''),
-(27, 'gajah', 'hewan', 10, '', '', ''),
-(28, 'gajah12', 'rusak', 10, 'monyet.jpg', '', ''),
-(29, 'qwed', 'baru', 10, 'monyet.jpg', '', ''),
-(30, 'kursi merah banget', 'baru', 10, '', '', ''),
-(31, 'lok', 'lok', 5, 'monyet.jpg', '', ''),
-(32, 'mkl', 'mlk', 1, 'WhatsApp Image 2023-02-15 at 14.39.19.jpeg', '', ''),
-(33, 'vee', 'dsv', 10, 'uploads/WhatsApp Image 2023-02-15 at 14.39.19.jpeg', '', ''),
-(34, 'fgsd', 'rge', 34, NULL, 'dsv', 'sdvc'),
-(35, 'xcasdfv', 'xcv', 324, NULL, '', ''),
-(36, '2rw', '', 234, NULL, 'wqe', '');
+(4, 'im@gmail.com', '12345', 'admin');
 
 -- --------------------------------------------------------
 
@@ -396,9 +329,12 @@ CREATE TABLE `tanah` (
 --
 
 INSERT INTO `tanah` (`idtanah`, `namalembaga`, `namaaset`, `keterangan`, `kodebarang`, `golongan4`, `asal`, `jumlah`, `harga`, `luas`, `tanggal`, `penggunaan`, `alamat`, `thak`, `tnomor`, `tanggalditerbitkan`, `image`) VALUES
-(1, 'colon', 'caszxczx', 'acs', '123', 'asd', '324234      ', 234, 98, '098', '2023-07-12', '098', '90809', '89i98', '9090', '2023-07-13', NULL),
-(2, 'sadz', 'jn', 'jhn', '89', '897', '87', 78, 7856, '98', '8997-08-09', 'jb', 'njkug', 'hbh', '897', '2000-08-09', NULL),
-(4, 'lolo', 'ahjbc', 'kjb', 'jk', 'njk', 'ih', 9, 67, 'bhjb', '2023-07-13', 'kj', 'jn', 'jnnk', 'lnl', '2023-07-13', NULL);
+(1, 'colon', 'caszxczx', 'acs', '123', 'asd', '324234       ', 234, 98, '098', '2023-07-12', '098', '90809', '89i98', '9090', '2023-07-20', '930821090fab63a237cd755e6e680ed5.jpg'),
+(2, 'zoad', 'jnlkm', 'jhn', '89', '897', '87   ', 78, 7856, '98', '8997-08-09', 'jb', 'njkug', 'hbh', '897', '2023-07-22', '87c62ebfef3ad37ccbcd6cdd3011046a.'),
+(4, 'lolo', 'ahjbc', 'kjb', 'jk', 'njk', 'ih', 9, 67, 'bhjb', '2023-07-13', 'kj', 'jn', 'jnnk', 'lnl', '2023-07-13', '87d9d718ef18dc47998128c59c420375.jpg'),
+(5, 'zxcvasc', 'jbkjkug', 'as', 'jk', 'n', 'bnkj ', 89, 989, '78', '2023-07-17', 'bhu', 'jbh', 'jkb', '234', '2023-07-17', '28ebe6756128dca71d6080431ad8b2a5.'),
+(6, 'ascadsadsa', 'jn', 'assd', '90', 'sdf', 'dsvc', 9, 98000, '345', '2023-07-18', 'bjk', 'ubij', 'jb', '897', '2023-07-20', '400fb6e41332be23c9f48fdd91226ea9.jpg'),
+(7, 'lamda', 'asui', 'adis', '97998', 'jkn', 'bnkj', 89, 68888, '786', '2023-07-20', 'jb', 'bjhb', 'jbm', 'lnl', '2023-07-19', '4037ef44e73e3fb73e77c36a49ba52eb.jpeg');
 
 --
 -- Indexes for dumped tables
@@ -435,10 +371,10 @@ ALTER TABLE `jalan`
   ADD PRIMARY KEY (`idjalan`);
 
 --
--- Indexes for table `keluar`
+-- Indexes for table `kode108`
 --
-ALTER TABLE `keluar`
-  ADD PRIMARY KEY (`idkeluar`);
+ALTER TABLE `kode108`
+  ADD PRIMARY KEY (`id108`);
 
 --
 -- Indexes for table `konstruksi`
@@ -451,18 +387,6 @@ ALTER TABLE `konstruksi`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`iduser`);
-
---
--- Indexes for table `masuk`
---
-ALTER TABLE `masuk`
-  ADD PRIMARY KEY (`idmasuk`);
-
---
--- Indexes for table `stock`
---
-ALTER TABLE `stock`
-  ADD PRIMARY KEY (`idbarang`);
 
 --
 -- Indexes for table `tanah`
@@ -478,7 +402,7 @@ ALTER TABLE `tanah`
 -- AUTO_INCREMENT for table `alatmesin`
 --
 ALTER TABLE `alatmesin`
-  MODIFY `idadm` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idadm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `asettetaplain`
@@ -496,7 +420,7 @@ ALTER TABLE `asettidakberwujud`
 -- AUTO_INCREMENT for table `gedungbangunan`
 --
 ALTER TABLE `gedungbangunan`
-  MODIFY `nogb` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `nogb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jalan`
@@ -505,10 +429,10 @@ ALTER TABLE `jalan`
   MODIFY `idjalan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `keluar`
+-- AUTO_INCREMENT for table `kode108`
 --
-ALTER TABLE `keluar`
-  MODIFY `idkeluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `kode108`
+  MODIFY `id108` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `konstruksi`
@@ -523,22 +447,10 @@ ALTER TABLE `login`
   MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `masuk`
---
-ALTER TABLE `masuk`
-  MODIFY `idmasuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT for table `stock`
---
-ALTER TABLE `stock`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
 -- AUTO_INCREMENT for table `tanah`
 --
 ALTER TABLE `tanah`
-  MODIFY `idtanah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idtanah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

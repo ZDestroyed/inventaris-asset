@@ -94,11 +94,7 @@ require '../cek.php';
                         
                         
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                    Tambah data
-                                </button>
-                            </div>
+                            
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -158,15 +154,9 @@ require '../cek.php';
                                                 <td><?= $keterangan;?></td>
                                                 <td>
                                                     
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$nogb;?>">
-                                                        Edit
-                                                </button>
-                                                <input type="hidden" name="idgedungyangmaudihapus" value="<?=$nogb;?>">
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$nogb;?>">
-                                                        Delete
+                                                
                                                 </button>
                                                 <a href="detailgedungbangunan.php?id=<?=$nogb;?>" class="w3-button w3-teal">Detail</a>
-                                                <br>
                                                 
                                                 <button type="button" class="<?php if (empty($gambar)) { echo "btn btn-warning";
                                                 }else{ echo "btn btn-success";} ?>" data-toggle="modal" data-target="#gambarmodal<?=$nogb;?>">

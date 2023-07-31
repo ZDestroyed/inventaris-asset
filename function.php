@@ -47,6 +47,52 @@ if(isset($_POST['hapusbarang'])){
         header('location:index.php');
     }
 };
+//---------------------------TANAH-----------------------
+
+//menambah admin 
+if(isset($_POST['addadmin'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
+
+    $queryinsert = mysqli_query($conn,"insert into login (email, password, role) values('$email','$password','$role')");
+    if($addtotable){
+        header('location:kelolaadmin.php');
+    }else{
+        echo 'gagal';
+        header('location:kelolaadmin.php');
+    }
+};
+
+//update admin
+if(isset($_POST['updateadmin'])){
+    $emailbaru = $_POST['emailadmin'];
+    $passwordbaru = $_POST['password'];
+    $rolebaru = $_POST['role'];
+    $idnya = $_POST['id'];
+
+    $queryupdate = mysqli_query($conn,"update login set email='$emailbaru', password='$passwordbaru', role='$rolebaru' where iduser = '$idnya'");
+    if($queryupdate){
+        header('location:kelolaadmin.php');
+    }else{
+        echo 'gagal';
+        header('location:kelolaadmin.php');
+    }
+};
+
+
+//hapus admin
+if(isset($_POST['hapusadmin'])){
+    $id = $_POST['id'];
+
+    $queryhapus = mysqli_query($conn,"delete from login where iduser='$id'");
+    if($queryhapus){
+        header('location:kelolaadmin.php');
+    }else{
+        echo 'gagal';
+        header('location:kelolaadmin.php');
+    }
+};
 
 
 //---------------------------TANAH-----------------------
@@ -387,7 +433,7 @@ if(isset($_POST['addnewgedung'])){
     $keteranganlainnya = $_POST['keteranganlainnya'];
 
     
-    $addtotablgedung = mysqli_query($conn,"insert into alatmesin (namalembaga,namaaset,keterangan,kodebarang,golongan4,
+    $addtotablegedung = mysqli_query($conn,"insert into gedungbangunan (namalembaga,namaaset,keterangan,kodebarang,golongan4,
     luas,alamat,titikkoor,tanggal,asal,jumlah,harga,kondisi,tingkat,beton,keteranganlainnya) 
     values('$namalembaga','$namaaset','$keterangan','$kodebarang','$golongan4','$luas',
     '$alamat','$titikkoor','$tanggal','$asal','$jumlah','$harga','$kondisi','$tingkat','$beton','$keteranganlainnya')") ;

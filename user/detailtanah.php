@@ -2,31 +2,27 @@
 require '../function.php';
 require '../cek.php';
 
-$idadm = $_GET['id'];
-$get = mysqli_query($conn,"select * from alatmesin where idadm='$idadm'");
+$idtanah = $_GET['id'];
+$get = mysqli_query($conn,"select * from tanah where idtanah='$idtanah'");
 $fetch = mysqli_fetch_assoc($get);
 
 $namalembaga = $fetch['namalembaga'];
-                                                $namaaset = $fetch['namaaset'];
-                                                $keterangan = $fetch['keterangan'];
-                                                $kodebarang = $fetch['kodebarang'];
-                                                $golongan4 = $fetch['golongan4'];
-                                                $merk = $fetch['merk'];
-                                                $type = $fetch['type'];
-                                                $ukuran = $fetch['ukuran'];
-                                                $bahan = $fetch['bahan'];
-                                                $tanggal = $fetch['tanggal'];
-                                                $asal = $fetch['asal'];
-                                                $jumlah = $fetch['jumlah'];
-                                                $harga = $fetch['harga'];
-                                                $nopabrik = $fetch['nopabrik'];
-                                                $norangka = $fetch['norangka'];
-                                                $nomesin = $fetch['nomesin'];
-                                                $nopolisi = $fetch['nopolisi'];
-                                                $bpkb = $fetch['bpkb'];
-                                                $kondisi = $fetch['kondisi'];
-                                                $keteranganlainnya = $fetch['keteranganlainnya'];
-                                                $gambar = $fetch['image'];
+$namalembaga = $fetch['namalembaga'];
+$namaaset = $fetch['namaaset'];
+$keterangan = $fetch['keterangan'];
+$kodebarang = $fetch['kodebarang'];
+$golongan4 = $fetch['golongan4'];
+$asal = $fetch['asal'];
+$jumlah = $fetch['jumlah'];
+$harga = $fetch['harga'];
+$luas = $fetch['luas'];
+$tanggal = $fetch['tanggal'];
+$penggunaan = $fetch['penggunaan'];
+$alamat = $fetch['alamat'];
+$thak = $fetch['thak'];
+$tnomor = $fetch['tnomor'];
+$tanggalditerbitkan = $fetch['tanggalditerbitkan'];
+$gambar = $fetch['image'];
 // if{$gambar==null}{
 //     $img = 'No Photo';
 // }else{
@@ -123,9 +119,9 @@ $namalembaga = $fetch['namalembaga'];
                         <h1 class="mt-4">Detail</h1>
                          
                             <?php
-                                $ambilsemuadatamesin = mysqli_query($conn,"select * from alatmesin");
+                                $ambilsemuadatatanah = mysqli_query($conn,"select * from tanah");
 
-                                while($fetch=mysqli_fetch_array($ambilsemuadatamesin)){
+                                while($fetch=mysqli_fetch_array($ambilsemuadatatanah)){
                                     
                                     $namaaset = $fetch['namaaset'];
                                 }
@@ -142,32 +138,27 @@ $namalembaga = $fetch['namalembaga'];
 
                                             
                                             <?php
-                                            $ambilsemuadatamesin = mysqli_query($conn,"select * from alatmesin where idadm='$idadm'");
+                                            $ambilsemuadatatanah = mysqli_query($conn,"select * from tanah where idtanah='$idtanah'");
                                             $i = 1;
-                                            while($data=mysqli_fetch_array($ambilsemuadatamesin)){
+                                            while($data=mysqli_fetch_array($ambilsemuadatatanah)){
                                                 
                                                 $namalembaga = $data['namalembaga'];
                                                 $namaaset = $data['namaaset'];
                                                 $keterangan = $data['keterangan'];
                                                 $kodebarang = $data['kodebarang'];
                                                 $golongan4 = $data['golongan4'];
-                                                $merk = $data['merk'];
-                                                $type = $data['type'];
-                                                $ukuran = $data['ukuran'];
-                                                $bahan = $data['bahan'];
-                                                $tanggal = $data['tanggal'];
                                                 $asal = $data['asal'];
                                                 $jumlah = $data['jumlah'];
                                                 $harga = $data['harga'];
-                                                $nopabrik = $data['nopabrik'];
-                                                $norangka = $data['norangka'];
-                                                $nomesin = $data['nomesin'];
-                                                $nopolisi = $data['nopolisi'];
-                                                $bpkb = $data['bpkb'];
-                                                $kondisi = $data['kondisi'];
-                                                $keteranganlainnya = $data['keteranganlainnya'];
+                                                $luas = $data['luas'];
+                                                $tanggal = $data['tanggal'];
+                                                $penggunaan = $data['penggunaan'];
+                                                $alamat = $data['alamat'];
+                                                $thak = $data['thak'];
+                                                $tnomor = $data['tnomor'];
+                                                $tanggalditerbitkan = $data['tanggalditerbitkan'];
                                                 $gambar = $data['image'];
-                                                $idadm = $data['idadm'];
+                                                $idtanah = $data['idtanah'];
 
                                                 if($gambar==null){
                                                     //gaada gambar
@@ -211,68 +202,54 @@ $namalembaga = $fetch['namalembaga'];
                                             <div class="col-md-9">: <?=$golongan4;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">merk</div>
-                                            <div class="col-md-9">: <?=$merk;?></div>
+                                            <div class="col-md-2">Asal Usul</div>
+                                            <div class="col-md-9">: <?=$asal;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">type</div>
-                                            <div class="col-md-9">: <?=$type;?></div>
+                                            <div class="col-md-2">Jumlah</div>
+                                            <div class="col-md-9">: <?=$jumlah;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">ukuran </div>
-                                            <div class="col-md-9">: <?=$ukuran;?></div>
+                                            <div class="col-md-2">Harga Perolehan</div>
+                                            <div class="col-md-9">: <?=$harga;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">bahan</div>
-                                            <div class="col-md-9">: <?=$bahan;?></div>
+                                            <div class="col-md-2">Luas</div>
+                                            <div class="col-md-9">: <?=$luas;?></div>
                                             </div>
                                             <div class="row">
                                             <div class="col-md-2">Tanggal Pembelian</div>
                                             <div class="col-md-9">: <?=$tanggal;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">asal usul</div>
-                                            <div class="col-md-9">: <?=$asal;?></div>
+                                            <div class="col-md-2">Penggunaan</div>
+                                            <div class="col-md-9">: <?=$penggunaan;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">jumlah</div>
-                                            <div class="col-md-9">: <?=$jumlah;?></div>
+                                            <div class="col-md-2">Alamat</div>
+                                            <div class="col-md-9">: <?=$alamat;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">harga</div>
-                                            <div class="col-md-9">: <?=$harga;?></div>
+                                            <div class="col-md-2">Status Tanah</div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">nomor pabrik</div>
-                                            <div class="col-md-9">: <?=$nopabrik;?></div>
+                                            <div class="col-md-2" style="left: 1cm;">Hak</div>
+                                            <div class="col-md-9" style="left: 1cm;">: <?=$thak;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">nomor rangka </div>
-                                            <div class="col-md-9">: <?=$norangka;?></div>
+                                            <div class="col-md-2" style="left: 1cm;">Nomor</div>
+                                            <div class="col-md-9" style="left: 1cm;">: <?=$tnomor;?></div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-md-2">nomor mesin</div>
-                                            <div class="col-md-9">: <?=$nomesin;?></div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-md-2">nomor polisi </div>
-                                            <div class="col-md-9">: <?=$nopolisi;?></div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-md-2">bpkb</div>
-                                            <div class="col-md-9">: <?=$bpkb;?></div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-md-2">kondisi</div>
-                                            <div class="col-md-9">: <?=$kondisi;?></div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-md-2">keteranganlainnya</div>
-                                            <div class="col-md-9">: <?=$keteranganlainnya;?></div>
-                                            </div>
+                                            <div class="col-md-2" style="left: 1cm;">Tanggal Di Terbitkan</div>
+                                            <div class="col-md-9" style="left: 1cm;">: <?=$tanggalditerbitkan;?></div>
                                             
+                            
                                             
-                                               
+
+                                             
+                                      
+                                                    
                                                     
                                                 </div>
                                                 </div>
